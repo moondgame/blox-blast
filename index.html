@@ -88,6 +88,7 @@ button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--
 .lv:disabled{box-shadow:0 2px 0 var(--pd)}
 .card,#week div{box-shadow:0 3px 8px rgba(0,0,0,.18)}
 #week .on{background:linear-gradient(180deg,var(--b1),var(--b2))}
+.lnk{color:var(--text);text-decoration:underline;font-size:.9rem}
 .hint{font-size:.8rem;color:var(--muted);margin:0;padding:0 16px;text-align:center;max-width:400px}
 @media (prefers-reduced-motion:reduce){.cell.flash,#toast.show{animation-duration:.01s}}
 </style>
@@ -124,6 +125,7 @@ button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--
   <button class="mb" id="hClassic">Klasik</button>
   <button class="mb" id="hLevel">Level</button>
   <button class="mb" id="hDaily">Tantangan harian</button>
+  <a id="apkLink" class="sub lnk" hidden>Unduh APK Android</a>
 </div>
 <div id="lvlScreen" class="screen" hidden>
   <div class="row"><button class="back" aria-label="Kembali"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2>Pilih level</h2><span></span></div>
@@ -460,6 +462,10 @@ $('#dStart').onclick=()=>startMode('daily');
 $('#mnu').onclick=showHome;
 $('#toMenu').onclick=()=>{mode==='level'?showLevels():mode==='daily'?showDaily():showHome()};
 $('#next').onclick=()=>startMode('level',lvl+1);
+(function(){
+  const h=location.hostname,r=location.pathname.split('/')[1];
+  if(h.endsWith('.github.io')&&r){const a=$('#apkLink');a.href='https://github.com/'+h.split('.')[0]+'/'+r+'/releases/latest/download/BloxBlastMini.apk';a.hidden=false}
+})();
 if(!load())startMode('classic');
 showHome();
 </script>
