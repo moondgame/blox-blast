@@ -10,3 +10,7 @@ Game puzzle blok (ala Block Blast) dalam satu halaman HTML. Bisa dimainkan offli
 ## Main offline di HP
 - **Install (disarankan):** buka link GitHub Pages di Chrome HP sekali saat online, lalu menu ⋮ > "Install app" / "Tambahkan ke layar utama". Setelah itu game jalan tanpa internet.
 - **Tanpa GitHub:** download `index.html` ke HP dan buka dengan Chrome. Game tetap jalan offline, tetapi tanpa fitur install.
+
+## Catatan versi
+- v2: efek suara + getaran (tombol 🔊 untuk mati/nyalakan), tombol ganti tema, progres game tersimpan otomatis, bonus "Papan bersih" (+100), dan potongan kecil lebih jarang muncul saat skor tinggi.
+- v3: mode Level (10 level, target hapus garis dengan jumlah blok terbatas, bintang 1-3), Tantangan harian (papan awal dan urutan blok sama tiap hari, ada rekor harian dan hitungan hari beruntun), menu mode (tombol ☰), animasi pop dan percikan saat garis terhapus, getar papan saat kombo, dan sorotan baris yang akan terhapus saat blok digeser.
