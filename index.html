@@ -53,14 +53,30 @@ button:focus-visible{outline:3px solid #ffd43b;outline-offset:2px}
 #gfill{height:100%;width:0;background:#51cf66;transition:width .3s}
 #final{white-space:pre-line;text-align:center}
 .alt{background:var(--panel);color:var(--text)}
-#menu{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:12px;padding:16px;overflow-y:auto}
-#menu[hidden]{display:none}
-#menu h2{margin:0}
-.mb{margin:0;width:230px}
-#lvls{display:grid;grid-template-columns:repeat(5,54px);gap:8px}
-.lv{margin:0;padding:8px 0;width:54px;font-size:1rem;line-height:1.1}
-.lv small{display:block;font-size:.6rem;min-height:.8em}
-.lv:disabled{opacity:.35;cursor:default}
+.screen{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:14px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto}
+.screen[hidden]{display:none}
+.screen h2{margin:0;font-size:1.3rem}
+.logo{display:grid;grid-template-columns:repeat(3,34px);gap:4px}
+.logo i{height:34px;border-radius:22%}
+.title{font-size:2rem;margin:0;text-align:center;line-height:1.1}
+.sub{color:var(--muted);margin:0;text-align:center;font-size:.85rem;max-width:340px}
+.mb{margin:0;width:min(280px,80vw)}
+.row{display:flex;align-items:center;justify-content:space-between;width:min(340px,92vw)}
+.row span{width:52px}
+.back{margin:0;padding:6px 16px;background:var(--panel);color:var(--text);font-size:1.1rem}
+#lvls{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(340px,92vw)}
+.lv{margin:0;padding:12px 10px;text-align:left;background:var(--panel);color:var(--text);font-size:1.05rem;line-height:1.35}
+.lv small{display:block;font-size:.75rem;color:var(--muted);font-weight:400}
+.lv .st{display:block;color:#ffd43b;letter-spacing:2px;font-size:.95rem}
+.lv:disabled{opacity:.4;cursor:default}
+.stats{display:flex;gap:10px;width:min(340px,92vw)}
+.card{background:var(--panel);border-radius:14px;padding:14px 10px;flex:1;text-align:center;font-size:.8rem;color:var(--muted)}
+.card b{font-size:1.8rem;color:var(--text);display:block}
+#week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;width:min(340px,92vw);text-align:center;font-size:.7rem;color:var(--muted)}
+#week div{background:var(--panel);border-radius:10px;padding:6px 0}
+#week .on{background:var(--btn);color:#fff}
+#week .today{outline:2px solid var(--text)}
+#week b{display:block;font-size:.95rem}
 .hint{font-size:.8rem;color:var(--muted);margin:0}
 @media (prefers-reduced-motion:reduce){.cell.flash,#toast.show{animation-duration:.01s}}
 </style>
@@ -68,7 +84,7 @@ button:focus-visible{outline:3px solid #ffd43b;outline-offset:2px}
 <body>
 <div class="top">
   <h1>Blox Blast Mini</h1>
-  <div class="tools"><button class="ic" id="mnu" aria-label="Menu">☰</button><button class="ic" id="snd" aria-label="Suara">🔊</button><button class="ic" id="thm" aria-label="Ganti tema">🌓</button></div>
+  <div class="tools"><button class="ic" id="mnu" aria-label="Beranda">🏠</button><button class="ic" id="snd" aria-label="Suara">🔊</button><button class="ic" id="thm" aria-label="Ganti tema">🌓</button></div>
 </div>
 <div class="bar">
   <div class="stat"><b id="score">0</b><span>Skor</span></div>
@@ -83,18 +99,32 @@ button:focus-visible{outline:3px solid #ffd43b;outline-offset:2px}
     <p id="final"></p>
     <button id="next" hidden>Level berikutnya</button>
     <button id="again">Main lagi</button>
-    <button id="toMenu" class="alt">Menu</button>
+    <button id="toMenu" class="alt">Kembali</button>
   </div>
 </div>
 <div id="tray"></div>
 <p class="hint">Seret blok ke papan. Isi satu baris atau kolom penuh untuk menghapusnya.</p>
-<div id="menu" hidden>
-  <h2>Pilih mode</h2>
-  <button class="mb" data-m="classic">Klasik baru</button>
-  <button class="mb" data-m="daily">Tantangan harian</button>
-  <p class="hint">Level</p>
+<div id="home" class="screen">
+  <div class="logo"><i style="background:#ff6b6b"></i><i style="background:#ffa94d"></i><i style="background:#ffd43b"></i><i style="background:#51cf66"></i><i style="background:#4dabf7"></i><i style="background:#9775fa"></i><i></i><i style="background:#f783ac"></i><i style="background:#ff6b6b"></i></div>
+  <h1 class="title">Blox Blast Mini</h1>
+  <p class="sub" id="homeInfo"></p>
+  <button class="mb" id="hCont" hidden>Lanjutkan</button>
+  <button class="mb" id="hClassic">Klasik</button>
+  <button class="mb" id="hLevel">Level</button>
+  <button class="mb" id="hDaily">Tantangan harian</button>
+</div>
+<div id="lvlScreen" class="screen" hidden>
+  <div class="row"><button class="back" aria-label="Kembali">←</button><h2>Pilih level</h2><span></span></div>
+  <p class="sub" id="lvInfo"></p>
   <div id="lvls"></div>
-  <button class="mb alt" id="closeMenu">Lanjut main</button>
+</div>
+<div id="dayScreen" class="screen" hidden>
+  <div class="row"><button class="back" aria-label="Kembali">←</button><h2>Tantangan harian</h2><span></span></div>
+  <p class="sub" id="dDate"></p>
+  <div class="stats"><div class="card"><b id="dStreak">0</b>hari beruntun</div><div class="card"><b id="dBest">0</b>rekor hari ini</div></div>
+  <p class="sub">Papan awal dan urutan blok sama untuk semua pemain hari ini. Main tiap hari untuk menjaga hari beruntun.</p>
+  <div id="week"></div>
+  <button class="mb" id="dStart">Mulai</button>
 </div>
 <script>
 const N=8,COLORS=['#ff6b6b','#ffa94d','#ffd43b','#51cf66','#4dabf7','#9775fa','#f783ac'];
@@ -105,7 +135,7 @@ const SHAPES=[[[1]],[[1,1]],[[1,1,1]],[[1,1,1,1]],[[1,1,1,1,1]],[[1],[1]],[[1],[
 [[1,1,1],[0,1,0]],[[0,1,0],[1,1,1]],[[1,0],[1,1],[1,0]],[[0,1],[1,1],[0,1]]];
 const LEVELS=[{l:2,m:6,p:0},{l:3,m:8,p:4},{l:4,m:9,p:6},{l:5,m:10,p:8},{l:6,m:11,p:10},{l:7,m:12,p:12},{l:8,m:14,p:14},{l:9,m:15,p:16},{l:10,m:16,p:18},{l:11,m:18,p:20}];
 const $=s=>document.querySelector(s);
-const boardEl=$('#board'),trayEl=$('#tray'),endEl=$('#end'),toastEl=$('#toast'),menuEl=$('#menu');
+const boardEl=$('#board'),trayEl=$('#tray'),endEl=$('#end'),toastEl=$('#toast');
 const cells=[];
 for(let i=0;i<64;i++){const d=document.createElement('div');d.className='cell';boardEl.appendChild(d);cells.push(d)}
 let grid,pieces,score,streak,over,busy,best=0,drag=null;
@@ -133,7 +163,7 @@ const sfx={
 const SAVE='blox-save';
 const dayKey=d=>d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
 function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-let dly={key:0,best:0,streak:0,last:0},prog={unlocked:1,stars:{}};
+let dly={key:0,best:0,streak:0,last:0,hist:{}},prog={unlocked:1,stars:{}};
 try{dly=Object.assign(dly,JSON.parse(localStorage.getItem('blox-daily')||'{}'));prog=Object.assign(prog,JSON.parse(localStorage.getItem('blox-prog')||'{}'))}catch(e){}
 function saveDaily(){try{localStorage.setItem('blox-daily',JSON.stringify(dly))}catch(e){}}
 function saveProg(){try{localStorage.setItem('blox-prog',JSON.stringify(prog))}catch(e){}}
@@ -141,7 +171,9 @@ function touchDaily(){
   const k=dayKey(new Date());
   if(dly.key!==k){
     const y=dayKey(new Date(Date.now()-864e5));
-    dly.streak=dly.last===y?dly.streak+1:1;dly.last=k;dly.key=k;dly.best=0;saveDaily();
+    dly.streak=dly.last===y?dly.streak+1:1;dly.last=k;dly.key=k;dly.best=0;dly.hist[k]=0;
+    const ks=Object.keys(dly.hist).sort();while(ks.length>30)delete dly.hist[ks.shift()];
+    saveDaily();
   }
 }
 function save(){try{localStorage.setItem(SAVE,over?'':JSON.stringify({grid,pieces,score,streak,mode,lvl,linesCleared,movesLeft,dealIdx,seed,dk:dayKey(new Date())}))}catch(e){}}
@@ -204,7 +236,7 @@ function updateScore(){
   let v,l='Terbaik';
   $('#score').textContent=score;
   if(mode==='classic'){if(score>best){best=score;try{localStorage.setItem('blox-best',best)}catch(e){}}v=best}
-  else if(mode==='daily'){if(score>dly.best){dly.best=score;saveDaily()}v=dly.best;l='Rekor hari ini'}
+  else if(mode==='daily'){if(score>dly.best){dly.best=score;dly.hist[dly.key]=score;saveDaily()}v=dly.best;l='Rekor hari ini'}
   else{v=lvl+1;l='Level'}
   $('#best').textContent=v;$('#blab').textContent=l;
 }
@@ -345,17 +377,50 @@ function startMode(m,l){
   else if(m==='daily'){touchDaily();seed=dly.key;prefill(8,mulberry(seed+999))}
   else{const L=LEVELS[lvl];seed=1000+lvl;movesLeft=L.m;prefill(L.p,mulberry(seed+999))}
   deal();renderBoard();renderTray();updateScore();updateGoal();
-  endEl.hidden=true;menuEl.hidden=true;save();
+  endEl.hidden=true;hideAll();save();
 }
 function reset(){startMode(mode,lvl)}
-function openMenu(){
+const $$=q=>document.querySelectorAll(q);
+const HARI=['Min','Sen','Sel','Rab','Kam','Jum','Sab'],BULAN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+function hideAll(){$$('.screen').forEach(e=>{e.hidden=true})}
+function show(id){hideAll();$(id).hidden=false}
+const resumable=()=>!over&&(score>0||pieces.some(x=>!x)||dealIdx>1);
+const streakNow=()=>dly.last>=dayKey(new Date(Date.now()-864e5))?dly.streak:0;
+function showHome(){
+  const c=$('#hCont');c.hidden=!resumable();
+  c.textContent='Lanjutkan: '+(mode==='level'?'Level '+(lvl+1):mode==='daily'?'Harian':'Klasik');
+  const st=Object.values(prog.stars).reduce((a,b)=>a+b,0);
+  $('#homeInfo').textContent='Skor terbaik '+best+', bintang '+st+'/'+LEVELS.length*3+', harian beruntun '+streakNow()+' hari';
+  show('#home');
+}
+function showLevels(){
   const box=$('#lvls');box.innerHTML='';
+  const total=Object.values(prog.stars).reduce((a,b)=>a+b,0);
+  $('#lvInfo').textContent='Bintang '+total+'/'+LEVELS.length*3+'. Selesaikan level untuk membuka berikutnya.';
   LEVELS.forEach((L,i)=>{
     const b=document.createElement('button');b.className='lv';b.disabled=i>=prog.unlocked;
-    b.innerHTML=(i+1)+'<small>'+('★'.repeat(prog.stars[i]||0)||'&nbsp;')+'</small>';
+    const st=prog.stars[i]||0;
+    b.innerHTML=i>=prog.unlocked?'Level '+(i+1)+'<small>Terkunci</small>':'Level '+(i+1)+'<span class="st">'+'★'.repeat(st)+'☆'.repeat(3-st)+'</span><small>'+L.l+' garis, '+L.m+' blok</small>';
     b.onclick=()=>startMode('level',i);box.appendChild(b);
   });
-  menuEl.hidden=false;
+  show('#lvlScreen');
+}
+function showDaily(){
+  const now=new Date(),k=dayKey(now),played=dly.key===k;
+  $('#dDate').textContent=HARI[now.getDay()]+', '+now.getDate()+' '+BULAN[now.getMonth()]+' '+now.getFullYear();
+  $('#dStreak').textContent=streakNow();
+  $('#dBest').textContent=played?dly.best:0;
+  const w=$('#week');w.innerHTML='';
+  for(let i=6;i>=0;i--){
+    const d=new Date(now.getTime()-i*864e5),sc=dly.hist[dayKey(d)];
+    const e=document.createElement('div');
+    if(sc!==undefined)e.classList.add('on');
+    if(i===0)e.classList.add('today');
+    e.innerHTML=HARI[d.getDay()]+'<b>'+d.getDate()+'</b>'+(sc!==undefined?sc:'-');
+    w.appendChild(e);
+  }
+  $('#dStart').textContent=played&&dly.best>0?'Main lagi':'Mulai';
+  show('#dayScreen');
 }
 $('#again').onclick=reset;
 const snd=$('#snd'),thm=$('#thm'),root=document.documentElement;
@@ -367,13 +432,17 @@ thm.onclick=()=>{
   root.dataset.theme=dark?'light':'dark';
   try{localStorage.setItem('blox-theme',root.dataset.theme)}catch(e){}
 };
-menuEl.querySelectorAll('.mb[data-m]').forEach(b=>b.onclick=()=>startMode(b.dataset.m));
-$('#closeMenu').onclick=()=>{menuEl.hidden=true};
-$('#mnu').onclick=openMenu;$('#toMenu').onclick=openMenu;
+$$('.back').forEach(b=>{b.onclick=showHome});
+$('#hCont').onclick=hideAll;
+$('#hClassic').onclick=()=>startMode('classic');
+$('#hLevel').onclick=showLevels;
+$('#hDaily').onclick=showDaily;
+$('#dStart').onclick=()=>startMode('daily');
+$('#mnu').onclick=showHome;
+$('#toMenu').onclick=()=>{mode==='level'?showLevels():mode==='daily'?showDaily():showHome()};
 $('#next').onclick=()=>startMode('level',lvl+1);
-let first=true;try{first=!localStorage.getItem('blox-seen');localStorage.setItem('blox-seen','1')}catch(e){}
 if(!load())startMode('classic');
-if(first)openMenu();
+showHome();
 </script>
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){navigator.serviceWorker.register("sw.js").catch(()=>{})}
