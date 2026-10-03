@@ -12,6 +12,8 @@ Game puzzle blok (ala Block Blast) dalam satu halaman HTML. Bisa dimainkan offli
 - **Tanpa GitHub:** download `index.html` ke HP dan buka dengan Chrome. Game tetap jalan offline, tetapi tanpa fitur install.
 
 ## Catatan versi
-- v2: efek suara + getaran (tombol 🔊 untuk mati/nyalakan), tombol ganti tema, progres game tersimpan otomatis, bonus "Papan bersih" (+100), dan potongan kecil lebih jarang muncul saat skor tinggi.
-- v3: mode Level (10 level, target hapus garis dengan jumlah blok terbatas, bintang 1-3), Tantangan harian (papan awal dan urutan blok sama tiap hari, ada rekor harian dan hitungan hari beruntun), menu mode (tombol ☰), animasi pop dan percikan saat garis terhapus, getar papan saat kombo, dan sorotan baris yang akan terhapus saat blok digeser.
-- v4: tampilan Beranda (Lanjutkan, Klasik, Level, Tantangan harian), layar pilih level dengan kartu bintang, dan layar Tantangan harian (tanggal, hari beruntun, rekor hari ini, riwayat 7 hari). Tombol 🏠 di game kembali ke Beranda.
+- v2: efek suara + getaran (tombol speaker untuk mati/nyalakan), tombol ganti tema, progres game tersimpan otomatis, bonus "Papan bersih" (+100), dan potongan kecil lebih jarang muncul saat skor tinggi.
+- v3: mode Level (10 level, target hapus garis dengan jumlah blok terbatas, bintang 1-3), Tantangan harian (papan awal dan urutan blok sama tiap hari, ada rekor harian dan hitungan hari beruntun), menu mode (tombol menu), animasi pop dan percikan saat garis terhapus, getar papan saat kombo, dan sorotan baris yang akan terhapus saat blok digeser.
+- v4: tampilan Beranda (Lanjutkan, Klasik, Level, Tantangan harian), layar pilih level dengan kartu bintang, dan layar Tantangan harian (tanggal, hari beruntun, rekor hari ini, riwayat 7 hari). Tombol rumah di game kembali ke Beranda.
+- v5: emoji diganti ikon SVG (rumah, speaker, tema, panah kembali, bintang).
+- v6: tombol bergradasi dengan bayangan tebal di bawah dan efek tertekan saat disentuh; teks petunjuk diberi jarak tepi.
