@@ -31,3 +31,5 @@ Game puzzle blok (ala Block Blast) dalam satu halaman HTML. Bisa dimainkan offli
 
 APK ini berisi game lengkap dan jalan offline. Setiap kali kamu mengubah `index.html` dan push, APK baru terbit otomatis.
 APK memakai tanda tangan debug, cukup untuk dipasang sendiri atau dibagikan, tetapi belum untuk Google Play.
+- v8: Tantangan harian punya 5 kotak bergambar (berlian, bintang, hati) yang harus dihapus semua untuk menyelesaikan tantangan. Hari yang selesai ditandai centang di riwayat.
+- v9: power-up Bom (hapus area 3x3), Acak (ganti blok yang tersisa), dan Undo (urungkan langkah terakhir). Tiap game mulai dengan 1 buah, dan tiap 5 garis terhapus memberi hadiah power-up bergantian.
