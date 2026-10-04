@@ -33,3 +33,4 @@ APK ini berisi game lengkap dan jalan offline. Setiap kali kamu mengubah `index.
 APK memakai tanda tangan debug, cukup untuk dipasang sendiri atau dibagikan, tetapi belum untuk Google Play.
 - v8: Tantangan harian punya 5 kotak bergambar (berlian, bintang, hati) yang harus dihapus semua untuk menyelesaikan tantangan. Hari yang selesai ditandai centang di riwayat.
 - v9: power-up Bom (hapus area 3x3), Acak (ganti blok yang tersisa), dan Undo (urungkan langkah terakhir). Tiap game mulai dengan 1 buah, dan tiap 5 garis terhapus memberi hadiah power-up bergantian.
+- v10: level diperbanyak jadi 20 dan dibuat lebih mudah (blok lebih banyak per target, papan awal lebih lega).
