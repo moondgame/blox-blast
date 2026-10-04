@@ -745,7 +745,7 @@ function tickTimer(){
   updateGoal();
 }
 /* ---- Papan peringkat online (Supabase) ---- */
-const ONLINE={url:'',key:''}; // isi sesuai PANDUAN-ONLINE.md. Pakai URL proyek dan kunci publishable/anon, JANGAN kunci secret/service_role.
+const ONLINE={url:'https://qhfsbywjypwlpggtukkc.supabase.co',key:'sb_publishable_LRavnb7Sy0fDPfjYjYlGTA_iC_Szmjd'}; // isi sesuai PANDUAN-ONLINE.md. Pakai URL proyek dan kunci publishable/anon, JANGAN kunci secret/service_role.
 const onlineOK=()=>!!(ONLINE.url&&ONLINE.key);
 const isoDay=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const setMsg=t=>{$('#shareMsg').textContent=t;$('#lbMsg').textContent=t};
