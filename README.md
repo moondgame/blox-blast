@@ -34,3 +34,18 @@ APK memakai tanda tangan debug, cukup untuk dipasang sendiri atau dibagikan, tet
 - v8: Tantangan harian punya 5 kotak bergambar (berlian, bintang, hati) yang harus dihapus semua untuk menyelesaikan tantangan. Hari yang selesai ditandai centang di riwayat.
 - v9: power-up Bom (hapus area 3x3), Acak (ganti blok yang tersisa), dan Undo (urungkan langkah terakhir). Tiap game mulai dengan 1 buah, dan tiap 5 garis terhapus memberi hadiah power-up bergantian.
 - v10: level diperbanyak jadi 20 dan dibuat lebih mudah (blok lebih banyak per target, papan awal lebih lega).
+- v11: keamanan (lihat bagian di bawah).
+
+## Keamanan
+Game:
+- Data tersimpan (progres, skor terbaik, level, tantangan harian) diberi tanda tangan. Kalau diubah lewat DevTools atau cara lain, datanya ditolak dan direset. Data juga divalidasi (bentuk papan, blok, skor, jumlah power-up) sebelum dipakai.
+- Content Security Policy membatasi halaman: tidak bisa memuat skrip dari luar dan tidak bisa mengirim data keluar.
+- Service worker hanya meng-cache permintaan GET dari domain sendiri.
+Aplikasi Android:
+- WebView hanya memuat file bawaan aplikasi, semua alamat luar diblokir. Akses file, konten, dan lokasi dimatikan, debugging dimatikan.
+- Backup otomatis dimatikan supaya data game tidak bisa diambil lewat backup.
+- Setiap build APK disertai file `BloxBlastMini.apk.sha256`. Untuk memeriksa keaslian unduhan: `sha256sum -c BloxBlastMini.apk.sha256` (Linux/Mac) atau bandingkan nilainya dengan hasil `Get-FileHash` (Windows).
+Batasan: game yang berjalan di perangkat pemain tidak bisa dibuat 100% anti-curang. Tanda tangan ini menghalangi pengubahan data secara santai, bukan penyerang yang membaca kodenya. Untuk papan peringkat yang adil, skor harus divalidasi di server.
+- v12: Pencapaian (15) dan Misi harian (3 misi baru tiap hari, hadiah power-up tambahan di awal game berikutnya), Skin blok (Klasik, Kaca, Piksel, Bola, Neon), dan musik latar yang dibuat langsung oleh game tanpa file audio. Semua ada di Beranda: tombol "Misi dan pencapaian" dan "Pengaturan".
+- v13: Tutorial singkat 4 langkah (muncul otomatis untuk pemain baru, bisa dibuka lagi dari Pengaturan > Lihat tutorial) dan tombol Bagikan hasil di layar akhir game. Di APK, tombol Bagikan membuka menu Bagikan bawaan Android lewat jembatan teks `AndroidShare`; di browser memakai Web Share atau menyalin teks ke papan klip.
+- v14: Mode waktu (90 detik, +3 detik tiap garis, papan dan urutan blok sama tiap hari) dan Papan peringkat online (Supabase) untuk Tantangan harian dan Mode waktu. Panduan lengkap ada di `PANDUAN-ONLINE.md`, SQL-nya di `supabase-setup.sql`. Papan peringkat baru aktif setelah URL dan kunci diisi di `const ONLINE` pada `index.html`.
