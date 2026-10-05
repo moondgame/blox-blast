@@ -1,0 +1,6 @@
+/* Papan dan sel */
+#board{display:grid;grid-template-columns:repeat(8,var(--cs));gap:3px;padding:6px;background:var(--panel);border-radius:14px}
+.cell{width:var(--cs);height:var(--cs);background:var(--cell);border-radius:22%;transition:background .15s}
+.cell.ghost{opacity:.5}
+.cell.pop{animation:pop .22s ease-out}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.12)}100%{transform:scale(1)}}

@@ -1,0 +1,10 @@
+/* Papan peringkat */
+#home{gap:10px}
+.nm{display:flex;gap:8px;width:min(340px,92vw)}
+.nm input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:2px solid var(--panel);background:var(--bg);color:var(--text);font-size:1rem;font-family:inherit}
+.nm button{margin:0;padding:8px 14px}
+.tabs{display:flex;gap:6px;width:min(340px,92vw)}
+.tab{margin:0;flex:1;padding:8px 4px;font-size:.78rem}
+.tab.sel{outline:3px solid var(--btn);outline-offset:1px}
+.lbr{display:flex;justify-content:space-between;gap:10px;background:var(--panel);border-radius:10px;padding:8px 12px;font-size:.9rem;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+.lbr.me{outline:2px solid var(--btn)}

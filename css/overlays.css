@@ -1,0 +1,25 @@
+/* Layar akhir, bagikan, tutorial */
+#end{justify-content:safe center;overflow-y:auto;gap:8px}
+#end button{margin:0;padding:10px 24px;font-size:1rem}
+#end .sub{color:#cbd5f0}
+#shareMsg:empty{display:none}
+#share{display:inline-flex;align-items:center;gap:8px}
+#share svg{width:18px;height:18px}
+#tut{z-index:30}
+.tart{min-height:130px;display:flex;align-items:center;justify-content:center;gap:14px}
+.tart svg{width:28px;height:28px}
+.tart .gi{width:46px;height:46px;padding:7px}
+.tart .gi svg{width:100%;height:100%}
+.tg{display:grid;gap:3px}
+.tg i{display:block;width:26px;height:26px;border-radius:22%;background:var(--cell)}
+.tg i.gh{animation:ghp 1.2s ease-in-out infinite}
+.tg i.ln{animation:lnp 1s ease-in-out infinite}
+@keyframes ghp{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes lnp{0%,100%{transform:scale(1)}50%{transform:scale(.8);filter:brightness(1.4)}}
+.tdots{display:flex;gap:8px;align-items:center}
+.tdots i{width:8px;height:8px;border-radius:4px;background:var(--panel)}
+.tdots i.on{width:22px;background:var(--btn)}
+.tpu{display:flex;gap:12px}
+.tpu div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.75rem;font-weight:700;background:var(--panel);border-radius:12px;padding:10px 14px;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+#tut .sub{font-size:.95rem;max-width:300px;line-height:1.4}
+@media (prefers-reduced-motion:reduce){.tg i.gh,.tg i.ln{animation:none}}

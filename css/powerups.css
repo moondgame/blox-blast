@@ -1,0 +1,7 @@
+/* Tombol power-up */
+.pwbar{display:flex;gap:14px;justify-content:center}
+.pw{position:relative;margin:0;padding:6px 14px;min-width:72px;display:inline-flex;flex-direction:column;align-items:center;gap:3px;font-size:.68rem;font-weight:700;line-height:1}
+.pw svg{width:22px;height:22px}
+.pw .bd{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#ff6b6b;color:#fff;font-size:.72rem;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.3);text-shadow:none}
+.pw:disabled{opacity:.4;cursor:default}
+.pw.on{background:linear-gradient(180deg,#ffa8a8,#ff6b6b);color:#fff;box-shadow:0 4px 0 #c92a2a,0 8px 14px rgba(0,0,0,.25)}

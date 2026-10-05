@@ -1,0 +1,18 @@
+/* Efek papan, nampan blok, notifikasi, layar akhir */
+.cell.blast{box-shadow:inset 0 0 0 3px #ff6b6b;filter:brightness(1.2)}
+.cell.tgt{box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+.cell.will{filter:brightness(1.25);box-shadow:inset 0 0 0 3px rgba(255,255,255,.75)}
+.cell.flash{animation:fl .22s ease-in forwards}
+@keyframes fl{to{transform:scale(.2);opacity:0}}
+#tray{display:flex;justify-content:space-between;width:calc(var(--cs)*8 + 33px)}
+.slot{width:calc(var(--cs)*2.9);height:calc(var(--cs)*2.9);display:grid;place-items:center;touch-action:none;cursor:grab}
+.piece{display:grid;gap:calc(3px*var(--k))}
+.piece i{border-radius:22%}
+.float{position:fixed;left:0;top:0;pointer-events:none;z-index:9;opacity:.92}
+#toast{position:absolute;left:0;right:0;top:40%;text-align:center;font-size:1.6rem;font-weight:700;pointer-events:none;opacity:0;text-shadow:0 2px 6px rgba(0,0,0,.35);color:#fff}
+#toast.show{animation:t .9s ease-out}
+@keyframes t{0%{opacity:0;transform:scale(.7)}20%{opacity:1;transform:scale(1.1)}80%{opacity:1}100%{opacity:0;transform:translateY(-20px)}}
+#end{position:absolute;inset:0;background:rgba(10,16,35,.82);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;z-index:5}
+#end[hidden]{display:none}
+#end h2{margin:0;font-size:1.8rem}
+#end p{margin:0}

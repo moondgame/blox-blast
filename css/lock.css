@@ -1,0 +1,12 @@
+/* Layar kunci PIN */
+.ovl{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:14px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto}
+.ovl[hidden]{display:none}
+.ovl h2{margin:0;font-size:1.4rem}
+.dots{display:flex;gap:14px;margin:6px 0}
+.dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--muted)}
+.dots i.on{background:var(--btn);border-color:var(--btn)}
+.keys{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
+.kk{margin:0;height:64px;padding:0;font-size:1.5rem;display:flex;align-items:center;justify-content:center}
+.kk svg{width:26px;height:26px}
+.kx{visibility:hidden}
+.lnk2{background:none;box-shadow:none;color:var(--muted);text-decoration:underline;font-size:.85rem;padding:6px;margin:0;text-shadow:none}

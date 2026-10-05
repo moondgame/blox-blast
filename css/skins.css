@@ -1,0 +1,6 @@
+/* Gaya blok (skin) */
+/* skin blok */
+:where([data-skin=glass]) :is(.cell.on,.piece i,.pv,.tg i.f){border-radius:26%;box-shadow:inset 0 3px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(0,0,0,.2),0 2px 4px rgba(0,0,0,.25)}
+:where([data-skin=pixel]) :is(.cell.on,.piece i,.pv,.tg i.f){border-radius:2px;box-shadow:inset 3px 3px 0 rgba(255,255,255,.4),inset -3px -3px 0 rgba(0,0,0,.3)}
+:where([data-skin=ball]) :is(.cell.on,.piece i,.pv,.tg i.f){border-radius:50%;box-shadow:inset -3px -4px 6px rgba(0,0,0,.25),inset 3px 3px 5px rgba(255,255,255,.5)}
+:where([data-skin=neon]) :is(.cell.on,.piece i,.pv,.tg i.f){box-shadow:inset 0 0 0 2px rgba(255,255,255,.75),0 0 10px rgba(255,255,255,.4);filter:saturate(1.5) brightness(1.1)}

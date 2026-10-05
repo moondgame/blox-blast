@@ -1,0 +1,4 @@
+/* Tautan, petunjuk, gerak berkurang */
+.lnk{color:var(--text);text-decoration:underline;font-size:.9rem}
+.hint{font-size:.8rem;color:var(--muted);margin:0;padding:0 16px;text-align:center;max-width:400px}
+@media (prefers-reduced-motion:reduce){.cell.flash,#toast.show{animation-duration:.01s}}

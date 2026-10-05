@@ -1,0 +1,14 @@
+/* Warna tema, tata letak dasar, header dan skor */
+:root{--bg:#eef2fb;--panel:#dbe3f5;--cell:#c9d4ee;--text:#1b2540;--muted:#5a6890;--btn:#3b5bdb;--b1:#6f8cff;--b2:#3b5bdb;--bd:#2442b0;--p1:#eef2fd;--p2:#cfd9f2;--pd:#aebbe0;--cs:min(10.5vw,46px);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14213d;--panel:#1d2f57;--cell:#2a4272;--text:#f4f6fb;--muted:#9fb0d3;--btn:#5c7cfa;--b1:#8aa1ff;--b2:#4a69e6;--bd:#2a45a8;--p1:#33508a;--p2:#243d6d;--pd:#142443}}
+:root[data-theme="dark"]{--bg:#14213d;--panel:#1d2f57;--cell:#2a4272;--text:#f4f6fb;--muted:#9fb0d3;--btn:#5c7cfa;--b1:#8aa1ff;--b2:#4a69e6;--bd:#2a45a8;--p1:#33508a;--p2:#243d6d;--pd:#142443}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--text);font-family:"Trebuchet MS",system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:10px;overflow-x:hidden;overflow-y:auto;user-select:none;-webkit-user-select:none}
+h1{margin:0;font-size:1.2rem;letter-spacing:.5px}
+.top{display:flex;align-items:center;gap:14px}
+.bar{display:flex;gap:28px}
+.stat{text-align:center}
+.stat b{display:block;font-size:1.7rem;line-height:1.1}
+.stat span{font-size:.8rem;color:var(--muted)}
+.wrap{position:relative}

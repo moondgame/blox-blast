@@ -1,0 +1,16 @@
+/* Misi, pencapaian, pengaturan skin */
+.list{display:flex;flex-direction:column;gap:8px;width:min(340px,92vw)}
+.mis,.ac{background:var(--panel);border-radius:12px;padding:10px 12px;box-shadow:0 3px 8px rgba(0,0,0,.18);font-size:.9rem}
+.mis small,.ac small{display:block;color:var(--muted);font-size:.75rem}
+.mis .gbar{margin-top:6px}
+.gf{height:100%;background:#51cf66}
+.mis.done{opacity:.75}
+.ac{display:flex;gap:10px;align-items:center}
+.ac svg{width:26px;height:26px;flex:none}
+.ac.lock{opacity:.5}
+.ac.un svg{color:#e6b800}
+.skins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(340px,92vw)}
+.sk{margin:0;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.8rem}
+.sk.sel{outline:3px solid var(--btn);outline-offset:1px}
+.skinprev{display:flex;gap:3px}
+.pv{display:inline-block;width:20px;height:20px;border-radius:22%}
