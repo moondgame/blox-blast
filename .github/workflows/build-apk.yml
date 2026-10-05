@@ -26,19 +26,23 @@ jobs:
       - name: Salin file game ke proyek Android
         run: |
           mkdir -p android/app/src/main/assets
-          cp index.html android/app/src/main/assets/index.html
+          cp -r index.html manifest.json icon-192.png icon-512.png css js android/app/src/main/assets/
 
       - name: Build APK
         working-directory: android
         run: gradle assembleDebug --no-daemon
 
       - name: Beri nama APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk BloxBlastMini.apk
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk BloxBlastMini.apk
+          sha256sum BloxBlastMini.apk > BloxBlastMini.apk.sha256
 
       - uses: actions/upload-artifact@v4
         with:
           name: BloxBlastMini-apk
-          path: BloxBlastMini.apk
+          path: |
+            BloxBlastMini.apk
+            BloxBlastMini.apk.sha256
 
       - name: Terbitkan ke Releases
         uses: softprops/action-gh-release@v2
@@ -46,4 +50,6 @@ jobs:
           tag_name: latest
           name: Blox Blast Mini (APK terbaru)
           make_latest: true
-          files: BloxBlastMini.apk
+          files: |
+            BloxBlastMini.apk
+            BloxBlastMini.apk.sha256
