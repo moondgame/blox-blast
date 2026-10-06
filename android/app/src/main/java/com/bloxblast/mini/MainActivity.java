@@ -4,14 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.window.OnBackInvokedDispatcher;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -121,9 +126,44 @@ public class MainActivity extends Activity {
                 return reply(403, "Blocked");
             }
         });
-
         web.addJavascriptInterface(new ShareBridge(), "AndroidShare");
-        setContentView(web);
+
+        // Android 15+ menggambar aplikasi sampai ke tepi layar: beri jarak agar game tidak tertutup bar sistem.
+        FrameLayout root = new FrameLayout(this);
+        root.setBackgroundColor(Color.parseColor("#14213d"));
+        root.addView(web, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        root.setOnApplyWindowInsetsListener((v, insets) -> {
+            int l, t, r, b;
+            if (Build.VERSION.SDK_INT >= 30) {
+                android.graphics.Insets i = insets.getInsets(
+                        WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
+                l = i.left; t = i.top; r = i.right; b = i.bottom;
+            } else {
+                l = insets.getSystemWindowInsetLeft();
+                t = insets.getSystemWindowInsetTop();
+                r = insets.getSystemWindowInsetRight();
+                b = insets.getSystemWindowInsetBottom();
+            }
+            v.setPadding(l, t, r, b);
+            return WindowInsets.CONSUMED;
+        });
+        setContentView(root);
+
+        if (Build.VERSION.SDK_INT >= 30) {
+            WindowInsetsController c = getWindow().getInsetsController();
+            if (c != null) {
+                // Latar gelap: ikon status bar dan navigasi dibuat terang
+                c.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                        | WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
+            }
+        }
+        // Tombol kembali versi baru (wajib di Android 16 untuk aplikasi target API 36)
+        if (Build.VERSION.SDK_INT >= 33) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::handleBack);
+        }
+
         if (state == null) {
             web.loadUrl(START);
         } else {
@@ -158,11 +198,20 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
-    // Tombol kembali: dari game/layar lain ke Beranda, dari Beranda keluar aplikasi
-    @Override
-    public void onBackPressed() {
+    // Tombol kembali: halaman lain (misalnya kebijakan privasi) -> kembali; dari game ke Beranda; dari Beranda keluar
+    private void handleBack() {
+        if (web.canGoBack()) {
+            web.goBack();
+            return;
+        }
         web.evaluateJavascript(
             "(function(){var h=document.getElementById('home');if(h&&h.hidden){showHome();return 1}return 0})()",
             value -> { if (!"1".equals(value)) finish(); });
+    }
+
+    // Android 12 ke bawah (dan jika callback baru tidak dipakai)
+    @Override
+    public void onBackPressed() {
+        handleBack();
     }
 }

@@ -7,10 +7,10 @@ function lockText(t,d){$('#lockT').textContent=t;$('#lockD').textContent=d||''}
 function lockDots(){$$('#lockDots i').forEach((e,i)=>e.classList.toggle('on',i<pinBuf.length))}
 function showLock(m){
   pinMode=m;pinBuf='';pinTmp='';forgotArm=false;
-  lockText(m==='unlock'?'Masukkan PIN':m==='set1'?'Buat PIN baru':'Masukkan PIN untuk mematikan',m==='unlock'?'Game terkunci.':'4 angka.');
+  lockText(m==='unlock'?t('pin_enter'):m==='set1'?t('pin_new'):t('pin_off'),m==='unlock'?t('pin_locked'):t('pin_4'));
   $('#lockCancel').hidden=m==='unlock';
   $('#lockForgot').hidden=m!=='unlock';
-  $('#lockForgot').textContent='Lupa PIN? Hapus data game';
+  $('#lockForgot').textContent=t('pin_forgot');
   lockDots();$('#lock').hidden=false;
 }
 function pinKey(k){
@@ -21,23 +21,23 @@ function pinKey(k){
 }
 function pinDone(){
   const pin=pinBuf;pinBuf='';lockDots();
-  if(pinMode==='set1'){pinTmp=pin;pinMode='set2';lockText('Ulangi PIN','Masukkan PIN yang sama.');return}
+  if(pinMode==='set1'){pinTmp=pin;pinMode='set2';lockText(t('pin_repeat'),t('pin_same'));return}
   if(pinMode==='set2'){
-    if(pin!==pinTmp){pinMode='set1';pinTmp='';lockText('Buat PIN baru','PIN tidak sama. Coba lagi.');return}
+    if(pin!==pinTmp){pinMode='set1';pinTmp='';lockText(t('pin_new'),t('pin_nomatch'));return}
     const salt=Math.random().toString(36).slice(2,10);
     pinCfg={salt,h:pinHash(pin,salt)};secSet('blox-pin',pinCfg);
     $('#lock').hidden=true;if(!$('#setScreen').hidden)showSettings();return;
   }
   const now=Date.now();
-  if(now<pinUntil){lockText('PIN ditolak','Terlalu banyak salah. Tunggu '+Math.ceil((pinUntil-now)/1000)+' detik.');return}
+  if(now<pinUntil){lockText(t('pin_refused'),t('pin_wait',{n:Math.ceil((pinUntil-now)/1000)}));return}
   if(pinCfg&&pinHash(pin,pinCfg.salt)===pinCfg.h){
     pinFail=0;lockPending=false;
     if(pinMode==='off'){pinCfg=null;try{localStorage.removeItem('blox-pin')}catch(e){}}
     $('#lock').hidden=true;if(!$('#setScreen').hidden)showSettings();return;
   }
   pinFail++;
-  if(pinFail>=5){pinFail=0;pinUntil=now+30000;lockText('PIN salah','Terlalu banyak salah. Tunggu 30 detik.')}
-  else lockText('PIN salah','Coba lagi ('+pinFail+'/5).');
+  if(pinFail>=5){pinFail=0;pinUntil=now+30000;lockText(t('pin_wrong'),t('pin_wait30'))}
+  else lockText(t('pin_wrong'),t('pin_retry',{n:pinFail}));
 }
 function initLock(){
   const k=$('#lockKeys');k.innerHTML='';
@@ -45,7 +45,7 @@ function initLock(){
     const b=document.createElement('button');
     if(v===''){b.className='kx';b.disabled=true;b.setAttribute('aria-hidden','true')}
     else{
-      b.className='alt kk';b.setAttribute('aria-label',v==='del'?'Hapus':v);
+      b.className='alt kk';b.setAttribute('aria-label',v==='del'?t('pin_del'):v);
       if(v==='del')b.innerHTML=PINBK;else b.textContent=v;
       b.onclick=()=>pinKey(v);
     }
@@ -54,7 +54,7 @@ function initLock(){
   $('#lockCancel').onclick=()=>{$('#lock').hidden=true};
   $('#lockForgot').onclick=()=>{
     const f=$('#lockForgot');
-    if(!forgotArm){forgotArm=true;f.textContent='Tekan lagi untuk menghapus semua data game';return}
+    if(!forgotArm){forgotArm=true;f.textContent=t('pin_forgot2');return}
     try{Object.keys(localStorage).filter(x=>x.startsWith('blox-')).forEach(x=>localStorage.removeItem(x))}catch(e){}
     location.reload();
   };

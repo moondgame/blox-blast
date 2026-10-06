@@ -25,104 +25,159 @@
 <link rel="stylesheet" href="css/extras.css">
 <link rel="stylesheet" href="css/levels.css">
 <link rel="stylesheet" href="css/lock.css">
+<link rel="stylesheet" href="css/account.css">
 </head>
 <body>
 <div class="top">
   <h1>Blox Blast Mini</h1>
-  <div class="tools"><button class="ic" id="mnu" aria-label="Beranda"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></button><button class="ic" id="snd" aria-label="Suara"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 010 7"/><path d="M19 6a8.5 8.5 0 010 12"/></svg></button><button class="ic" id="thm" aria-label="Ganti tema"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18z" fill="currentColor"/></svg></button></div>
+  <div class="tools"><button class="ic" id="mnu" aria-label="Home"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></button><button class="ic" id="snd" aria-label="Sound"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 010 7"/><path d="M19 6a8.5 8.5 0 010 12"/></svg></button><button class="ic" id="thm" aria-label="Theme"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18z" fill="currentColor"/></svg></button></div>
 </div>
 <div class="bar">
-  <div class="stat"><b id="score">0</b><span>Skor</span></div>
-  <div class="stat"><b id="best">0</b><span id="blab">Terbaik</span></div>
+  <div class="stat"><b id="score">0</b><span data-i18n="score"></span></div>
+  <div class="stat"><b id="best">0</b><span id="blab"></span></div>
 </div>
 <div class="goal"><span id="gtxt"></span><div id="gico"></div><div class="gbar"><div id="gfill"></div></div></div>
 <div class="wrap">
   <div id="board"></div>
   <div id="toast"></div>
   <div id="end" hidden>
-    <h2 id="etitle">Game selesai</h2>
+    <h2 id="etitle"></h2>
     <div class="estars" id="estars"></div>
     <p id="final"></p>
     <p class="sub" id="shareMsg"></p>
-    <button id="next" hidden>Level berikutnya</button>
-    <button id="again">Main lagi</button>
-    <button id="share" class="alt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></svg>Bagikan hasil</button>
-    <button id="toLb" class="alt" hidden>Papan peringkat</button>
-    <button id="toMenu" class="alt">Kembali</button>
+    <button id="next" hidden data-i18n="end_next"></button>
+    <button id="again" data-i18n="end_again"></button>
+    <button id="share" class="alt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></svg><span data-i18n="end_share"></span></button>
+    <button id="toLb" class="alt" hidden data-i18n="end_lb"></button>
+    <button id="toMenu" class="alt" data-i18n="back"></button>
   </div>
 </div>
 <div id="tray"></div>
-<div class="pwbar"><button class="alt pw" id="p-bomb" aria-label="Bom"></button><button class="alt pw" id="p-shuffle" aria-label="Acak blok"></button><button class="alt pw" id="p-undo" aria-label="Urungkan"></button></div>
-<p class="hint" id="hint">Seret blok ke papan. Isi satu baris atau kolom penuh untuk menghapusnya.</p>
+<div class="pwbar"><button class="alt pw" id="p-bomb" data-i18n-aria="aria_bomb"></button><button class="alt pw" id="p-shuffle" data-i18n-aria="aria_shuffle"></button><button class="alt pw" id="p-undo" data-i18n-aria="aria_undo"></button></div>
+<p class="hint" id="hint"></p>
+
 <div id="home" class="screen">
   <div class="logo"><i style="background:#ff6b6b"></i><i style="background:#ffa94d"></i><i style="background:#ffd43b"></i><i style="background:#51cf66"></i><i style="background:#4dabf7"></i><i style="background:#9775fa"></i><i></i><i style="background:#f783ac"></i><i style="background:#ff6b6b"></i></div>
   <h1 class="title">Blox Blast Mini</h1>
   <p class="sub" id="homeInfo"></p>
-  <button class="mb" id="hCont" hidden>Lanjutkan</button>
-  <button class="mb" id="hClassic">Klasik</button>
-  <button class="mb" id="hLevel">Level</button>
-  <button class="mb" id="hDaily">Tantangan harian</button>
-  <button class="mb" id="hTimed">Mode waktu</button>
-  <button class="mb" id="hMis">Misi dan pencapaian</button>
-  <button class="mb alt" id="hLb">Papan peringkat</button>
-  <button class="mb alt" id="hSet">Pengaturan</button>
-  <a id="apkLink" class="sub lnk" hidden>Unduh APK Android</a>
+  <p class="sub" id="homeAcc"></p>
+  <button class="mb" id="hStart" data-i18n="home_start"></button>
+  <button class="mb alt" id="hLb" data-i18n="home_lb"></button>
+  <button class="mb alt" id="hSet" data-i18n="home_set"></button>
 </div>
+
+<div id="startScreen" class="screen" hidden>
+  <div class="row"><button class="back" data-back="home" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2 data-i18n="start_title"></h2><span></span></div>
+  <button class="mb" id="hCont" hidden></button>
+  <button class="mc" id="hClassic"><b data-i18n="mode_classic"></b><small data-i18n="mode_classic_d"></small></button>
+  <button class="mc" id="hLevel"><b data-i18n="mode_level"></b><small data-i18n="mode_level_d"></small></button>
+  <button class="mc" id="hDaily"><b data-i18n="mode_daily"></b><small data-i18n="mode_daily_d"></small></button>
+  <button class="mc" id="hTimed"><b data-i18n="mode_timed"></b><small data-i18n="mode_timed_d"></small></button>
+  <button class="mb alt" id="hMis" data-i18n="start_missions"></button>
+</div>
+
 <div id="lvlScreen" class="screen" hidden>
-  <div class="row"><button class="back" aria-label="Kembali"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2>Pilih level</h2><span></span></div>
+  <div class="row"><button class="back" data-back="start" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2 data-i18n="lv_title"></h2><span></span></div>
   <p class="sub" id="lvInfo"></p>
   <div id="lvls"></div>
 </div>
+
 <div id="dayScreen" class="screen" hidden>
-  <div class="row"><button class="back" aria-label="Kembali"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2>Tantangan harian</h2><span></span></div>
+  <div class="row"><button class="back" data-back="start" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2 data-i18n="day_title"></h2><span></span></div>
   <p class="sub" id="dDate"></p>
-  <div class="stats"><div class="card"><b id="dStreak">0</b>hari beruntun</div><div class="card"><b id="dBest">0</b>rekor hari ini</div></div>
-  <p class="sub">Hapus semua kotak bergambar di papan untuk menyelesaikan tantangan. Papan dan urutan blok sama untuk semua pemain hari ini.</p>
+  <div class="stats"><div class="card"><b id="dStreak">0</b><span data-i18n="day_streak"></span></div><div class="card"><b id="dBest">0</b><span data-i18n="day_best"></span></div></div>
+  <p class="sub" data-i18n="day_desc"></p>
   <div id="week"></div>
-  <button class="mb" id="dStart">Mulai</button>
+  <button class="mb" id="dStart"></button>
 </div>
+
 <div id="achScreen" class="screen" hidden>
-  <div class="row"><button class="back" aria-label="Kembali"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2>Misi hari ini</h2><span></span></div>
-  <p class="sub">Misi baru tiap hari. Hadiahnya power-up tambahan di awal game berikutnya.</p>
+  <div class="row"><button class="back" data-back="start" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2 data-i18n="miss_title"></h2><span></span></div>
+  <p class="sub" data-i18n="miss_sub"></p>
   <div id="missions" class="list"></div>
-  <h2 id="achH">Pencapaian</h2>
+  <h2 id="achH"></h2>
   <div id="achList" class="list"></div>
 </div>
+
 <div id="setScreen" class="screen" hidden>
-  <div class="row"><button class="back" aria-label="Kembali"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2>Pengaturan</h2><span></span></div>
-  <p class="sub">Gaya blok</p>
+  <div class="row"><button class="back" data-back="home" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2 data-i18n="set_title"></h2><span></span></div>
+  <button class="mb" id="sAcc"></button>
+  <p class="sub" data-i18n="set_lang"></p>
+  <div class="tabs" id="langs"></div>
+  <p class="sub" data-i18n="set_skin"></p>
   <div id="skins" class="skins"></div>
-  <p class="sub">Suara</p>
+  <p class="sub" data-i18n="set_sound"></p>
   <button class="mb" id="sMusic"></button>
   <button class="mb" id="sSfx"></button>
   <button class="mb" id="sPin"></button>
-  <button class="mb alt" id="sTut">Lihat tutorial</button>
+  <button class="mb alt" id="sTut" data-i18n="set_tut"></button>
+  <button class="mb alt" id="sPriv" data-i18n="set_priv"></button>
+  <a id="apkLink" class="sub lnk" hidden data-i18n="apk_link"></a>
 </div>
+
 <div id="lbScreen" class="screen" hidden>
-  <div class="row"><button class="back" aria-label="Kembali"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2>Papan peringkat</h2><span></span></div>
-  <div class="nm"><input id="lbName" maxlength="16" placeholder="Nama pemain (2-16 karakter)" autocomplete="off"><button class="alt" id="lbSave">Simpan</button></div>
-  <div class="tabs"><button class="alt tab" data-t="daily">Harian</button><button class="alt tab" data-t="timed">Waktu hari ini</button><button class="alt tab" data-t="timedall">Waktu semua</button></div>
+  <div class="row"><button class="back" data-back="home" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2 data-i18n="lb_title"></h2><span></span></div>
+  <p class="sub" id="lbAcc"></p>
+  <button class="mb alt" id="lbLogin" hidden data-i18n="lb_login_btn"></button>
+  <div class="tabs"><button class="alt tab" data-t="daily" data-i18n="lb_tab_daily"></button><button class="alt tab" data-t="timed" data-i18n="lb_tab_timed"></button><button class="alt tab" data-t="timedall" data-i18n="lb_tab_all"></button></div>
   <p class="sub" id="lbMsg"></p>
   <p class="sub" id="lbInfo"></p>
   <div id="lbList" class="list"></div>
 </div>
+
+<div id="accScreen" class="screen" hidden>
+  <div class="row"><button class="back" data-back="settings" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2 data-i18n="acc_title"></h2><span></span></div>
+  <div id="accOut" class="accbox">
+    <p class="sub" data-i18n="acc_info_guest"></p>
+    <div class="tabs"><button class="alt tab sel" id="tabIn" data-i18n="acc_login"></button><button class="alt tab" id="tabUp" data-i18n="acc_signup"></button></div>
+    <input class="fld" id="accEmail" type="email" autocomplete="email" data-i18n-ph="acc_email">
+    <input class="fld" id="accUser" maxlength="16" autocomplete="username" hidden data-i18n-ph="acc_user">
+    <input class="fld" id="accPass" type="password" autocomplete="current-password" data-i18n-ph="acc_pass">
+    <button class="mb" id="accGo" data-i18n="acc_login"></button>
+    <button class="lnk2" id="accForgot" data-i18n="acc_forgot"></button>
+  </div>
+  <div id="accRec" class="accbox" hidden>
+    <input class="fld" id="accNew" type="password" autocomplete="new-password" data-i18n-ph="acc_newpass">
+    <button class="mb" id="accSetPass" data-i18n="acc_setpass"></button>
+  </div>
+  <div id="accIn" class="accbox" hidden>
+    <p class="sub" id="accWho"></p>
+    <p class="sub" id="accSyncT"></p>
+    <button class="mb" id="accSync" data-i18n="acc_sync"></button>
+    <button class="mb alt" id="accAdminBtn" hidden data-i18n="acc_admin"></button>
+    <button class="mb alt" id="accLogout" data-i18n="acc_logout"></button>
+    <p class="sub" data-i18n="acc_logout_note"></p>
+    <button class="lnk2" id="accDel" data-i18n="acc_delete"></button>
+  </div>
+  <p class="sub" id="accMsg"></p>
+</div>
+
+<div id="adminScreen" class="screen" hidden>
+  <div class="row"><button class="back" data-back="account" data-i18n-aria="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button><h2>Panel admin</h2><span></span></div>
+  <div class="tabs wrap2" id="admTabs"><button class="alt tab sel" data-at="ov">Ringkasan</button><button class="alt tab" data-at="us">Pemain</button><button class="alt tab" data-at="sc">Skor</button><button class="alt tab" data-at="rp">Laporan</button><button class="alt tab" data-at="lg">Log</button></div>
+  <p class="sub" id="admMsg"></p>
+  <div id="admBody" class="list"></div>
+</div>
+
 <div id="tut" class="screen" hidden>
   <div class="tart" id="tutArt"></div>
   <h2 id="tutT"></h2>
   <p class="sub" id="tutD"></p>
   <div class="tdots" id="tutDots"></div>
-  <button class="mb" id="tutNext">Lanjut</button>
-  <button class="mb alt" id="tutSkip">Lewati</button>
+  <button class="mb" id="tutNext"></button>
+  <button class="mb alt" id="tutSkip" data-i18n="tut_skip"></button>
 </div>
+
 <div id="lock" class="ovl" hidden>
-  <h2 id="lockT">Masukkan PIN</h2>
+  <h2 id="lockT"></h2>
   <p class="sub" id="lockD"></p>
   <div class="dots" id="lockDots"><i></i><i></i><i></i><i></i></div>
   <div class="keys" id="lockKeys"></div>
-  <button class="mb alt" id="lockCancel" hidden>Batal</button>
-  <button class="lnk2" id="lockForgot" hidden>Lupa PIN? Hapus data game</button>
+  <button class="mb alt" id="lockCancel" hidden data-i18n="pin_cancel"></button>
+  <button class="lnk2" id="lockForgot" hidden></button>
 </div>
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/security.js"></script>
 <script src="js/state.js"></script>
 <script src="js/audio.js"></script>
@@ -137,6 +192,8 @@
 <script src="js/share.js"></script>
 <script src="js/tutorial.js"></script>
 <script src="js/online.js"></script>
+<script src="js/account.js"></script>
+<script src="js/admin.js"></script>
 <script src="js/powerups.js"></script>
 <script src="js/screens.js"></script>
 <script src="js/pin.js"></script>

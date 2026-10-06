@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nama yang tampil di bawah ikon. Ganti di sini jika nama aplikasi diganti. -->
+    <string name="app_name">Blox Blast Mini</string>
+</resources>

@@ -4,7 +4,7 @@ const SALT='bbm-7f3a91c2';
 function h53(str){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<str.length;i++){const c=str.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
 let tampered=false,migrate=false;
 try{migrate=localStorage.getItem('blox-sec')!=='1'}catch(e){}
-function secSet(k,v){try{const d=JSON.stringify(v);localStorage.setItem(k,JSON.stringify({d,s:h53(SALT+k+d)}))}catch(e){}}
+function secSet(k,v){try{const d=JSON.stringify(v);localStorage.setItem(k,JSON.stringify({d,s:h53(SALT+k+d)}));if(typeof syncSoon==='function'&&SYNC_KEYS.includes(k))syncSoon()}catch(e){}}
 function secGet(k,def){
   let raw=null;
   try{raw=localStorage.getItem(k)}catch(e){return def}

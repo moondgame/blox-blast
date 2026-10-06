@@ -10,28 +10,33 @@ function hideAll(){$$('.screen').forEach(e=>{e.hidden=true})}
 function show(id){hideAll();$(id).hidden=false}
 const resumable=()=>!over&&(score>0||pieces.some(x=>!x)||dealIdx>1);
 const streakNow=()=>dly.last>=dayKey(new Date(Date.now()-864e5))?dly.streak:0;
+const modeName=m=>m==='level'?t('mode_level')+' '+(lvl+1):m==='daily'?t('mode_r_daily'):m==='timed'?t('mode_r_timed'):t('mode_classic');
 function showHome(){
-  const c=$('#hCont');c.hidden=!resumable();
-  c.textContent='Lanjutkan: '+(mode==='level'?'Level '+(lvl+1):mode==='daily'?'Harian':mode==='timed'?'Waktu':'Klasik');
   const st=Object.values(prog.stars).reduce((a,b)=>a+b,0);
-  $('#homeInfo').textContent='Skor terbaik '+best+', bintang '+st+'/'+LEVELS.length*3+', harian beruntun '+streakNow()+' hari'+(tampered?'. Data simpan yang tidak valid telah direset.':'');
+  $('#homeInfo').textContent=t('home_info',{best,st,max:LEVELS.length*3,streak:streakNow()})+(tampered?'. '+t('tampered'):'');
+  $('#homeAcc').textContent=accName()?t('home_acc_in',{name:accName()}):t('home_acc_out');
   show('#home');
+}
+function showStart(){
+  const c=$('#hCont');c.hidden=!resumable();
+  c.textContent=t('start_resume',{mode:modeName(mode)});
+  show('#startScreen');
 }
 function showLevels(){
   const box=$('#lvls');box.innerHTML='';
   const total=Object.values(prog.stars).reduce((a,b)=>a+b,0);
-  $('#lvInfo').textContent='Bintang '+total+'/'+LEVELS.length*3+'. Selesaikan level untuk membuka berikutnya.';
+  $('#lvInfo').textContent=t('lv_info',{total,max:LEVELS.length*3});
   LEVELS.forEach((L,i)=>{
     const b=document.createElement('button');b.className='lv';b.disabled=i>=prog.unlocked;
-    const st=prog.stars[i]||0;
-    b.innerHTML=i>=prog.unlocked?'Level '+(i+1)+'<small>Terkunci</small>':'Level '+(i+1)+'<span class="st">'+starsHTML(st,16)+'</span><small>'+lvDesc(L)+'</small>';
+    const st=prog.stars[i]||0,nm=t('lv_card',{n:i+1});
+    b.innerHTML=i>=prog.unlocked?nm+'<small>'+t('lv_locked')+'</small>':nm+'<span class="st">'+starsHTML(st,16)+'</span><small>'+lvDesc(L)+'</small>';
     b.onclick=()=>startMode('level',i);box.appendChild(b);
   });
   show('#lvlScreen');
 }
 function showDaily(){
   const now=new Date(),k=dayKey(now),played=dly.key===k;
-  $('#dDate').textContent=HARI[now.getDay()]+', '+now.getDate()+' '+BULAN[now.getMonth()]+' '+now.getFullYear();
+  $('#dDate').textContent=now.toLocaleDateString(dateLoc(),{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   $('#dStreak').textContent=streakNow();
   $('#dBest').textContent=played?dly.best:0;
   const w=$('#week');w.innerHTML='';
@@ -41,9 +46,9 @@ function showDaily(){
     if(sc!==undefined)e.classList.add('on');
     if(i===0)e.classList.add('today');
     const dn=dly.done[dayKey(d)];
-    e.innerHTML=HARI[d.getDay()]+'<b>'+d.getDate()+'</b>'+(dn?CHECK:(sc!==undefined?sc:'-'));
+    e.innerHTML=d.toLocaleDateString(dateLoc(),{weekday:'short'})+'<b>'+d.getDate()+'</b>'+(dn?CHECK:(sc!==undefined?sc:'-'));
     w.appendChild(e);
   }
-  $('#dStart').textContent=(dly.done[k]||(played&&dly.best>0))?'Main lagi':'Mulai';
+  $('#dStart').textContent=t((dly.done[k]||(played&&dly.best>0))?'day_again':'day_start');
   show('#dayScreen');
 }

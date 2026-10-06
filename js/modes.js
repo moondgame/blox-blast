@@ -2,7 +2,7 @@
 function finish(title,msg,next){
   over=true;busy=false;
   $('#shareMsg').textContent='';$('#etitle').textContent=title;$('#final').textContent=msg;$('#estars').innerHTML='';
-  $('#next').hidden=!next;$('#again').textContent=mode==='level'?'Coba lagi':'Main lagi';
+  $('#next').hidden=!next;$('#again').textContent=t(mode==='level'?'end_retry':'end_again');
   endEl.hidden=false;
   if(next)sfx.clear(3);else sfx.over();
   pend=(score>0&&(mode==='timed'||(mode==='daily'&&lastRes&&lastRes.win)))?{mode:mode==='timed'?'timed':'daily',day:isoDay(),score,moves,lines:linesCleared,secs:Math.round(playSecs)}:null;
@@ -15,7 +15,7 @@ function win(){
   prog.stars[lvl]=Math.max(prog.stars[lvl]||0,st);
   prog.unlocked=Math.max(prog.unlocked,Math.min(LEVELS.length,lvl+2));saveProg();
   lastRes={win:true,st};ev('level',1);
-  finish('Level selesai!','Skor '+score+(last?'\nSemua level tamat!':''),!last);
+  finish(t('lv_win'),t('score_line',{n:score})+(last?'\n'+t('all_done'):''),!last);
   $('#estars').innerHTML=starsHTML(st,30);
 }
 /* ---- Mode waktu ---- */
@@ -28,8 +28,8 @@ function tickTimer(){
   timeLeft-=dt;
   if(timeLeft<=0){
     timeLeft=0;updateGoal();lastRes={win:false,timeUp:true};
-    if(mode==='level')finish('Level gagal','Waktu habis sebelum target tercapai',false);
-    else finish('Waktu habis','Skor kamu: '+score,false);
+    if(mode==='level')finish(t('lv_fail'),t('fail_time'),false);
+    else finish(t('time_up'),t('your_score',{n:score}),false);
     return;
   }
   updateGoal();
@@ -37,7 +37,7 @@ function tickTimer(){
 function winDaily(){
   dly.done[dly.key]=true;saveDaily();
   lastRes={win:true};ev('daily',1);
-  finish('Tantangan selesai!','Skor '+score+'\nRekor hari ini: '+dly.best,false);
+  finish(t('daily_win'),t('score_line',{n:score})+'\n'+t('daily_best_line',{n:dly.best}),false);
   $('#estars').innerHTML='<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#51cf66"/><path d="M6.5 12.5l4 4 7-8" stroke="#fff" stroke-width="2.6"/></svg>';
 }
 function pickTargets(rng,n){
@@ -53,20 +53,20 @@ function levelDone(){
   return (!L.l||linesCleared>=L.l)&&(!L.gems||!Object.keys(targets).length)&&(!L.ice||!Object.keys(ice).length);
 }
 function lvDesc(L){
-  const p=[];if(L.l)p.push(L.l+' garis');if(L.gems)p.push(L.gems+' gambar');if(L.ice)p.push(L.ice+' es');
-  return p.join(', ')+' / '+L.m+' blok'+(L.t?' / '+L.t+' dtk':'');
+  const p=[];if(L.l)p.push(t('d_lines',{n:L.l}));if(L.gems)p.push(t('d_gems',{n:L.gems}));if(L.ice)p.push(t('d_ice',{n:L.ice}));
+  return p.join(', ')+' / '+t('d_blocks',{n:L.m})+(L.t?' / '+t('d_sec',{n:L.t}):'');
 }
 function after(){
   renderBoard();updateScore();updateGoal();updatePw();checkAch();saveMeta();
   if(mode==='daily'&&!Object.keys(targets).length)return winDaily();
   if(mode==='level'){
     if(levelDone())return win();
-    if(movesLeft<=0)return finish('Level gagal','Blok habis sebelum target tercapai',false);
+    if(movesLeft<=0)return finish(t('lv_fail'),t('fail_moves'),false);
   }
   if(pieces.every(x=>!x))deal();
   renderTray();
   if(!pieces.some(p=>p&&canPlaceAny(p))){
-    return finish(mode==='level'?'Level gagal':'Game selesai',mode==='daily'?'Skor '+score+'\nRekor hari ini: '+dly.best:'Skor kamu: '+score,false);
+    return finish(mode==='level'?t('lv_fail'):t('end_title'),mode==='daily'?t('score_line',{n:score})+'\n'+t('daily_best_line',{n:dly.best}):t('your_score',{n:score}),false);
   }
   save();
 }

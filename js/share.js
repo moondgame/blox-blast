@@ -1,25 +1,26 @@
 /* Tombol bagikan hasil */
 function shareText(){
   const r=lastRes||{},d=new Date();
-  if(mode==='daily')return 'Blox Blast Mini, tantangan harian '+d.getDate()+' '+BULAN[d.getMonth()]+' '+d.getFullYear()+': '+(r.win?'selesai':'belum selesai')+', skor '+score+', beruntun '+streakNow()+' hari.';
-  if(mode==='level')return 'Blox Blast Mini, level '+(lvl+1)+': '+(r.win?'selesai dengan '+r.st+' dari 3 bintang':'belum selesai')+', skor '+score+'.';
-  if(mode==='timed')return 'Blox Blast Mini, mode waktu: skor '+score+' (terbaik '+bestT+').';
-  return 'Blox Blast Mini, mode klasik: skor '+score+' (terbaik '+best+').';
+  const app='Blox Blast Mini';
+  if(mode==='daily')return t('share_daily',{app,date:d.toLocaleDateString(dateLoc(),{day:'numeric',month:'long',year:'numeric'}),res:t(r.win?'share_res_done':'share_res_not'),score,streak:streakNow()});
+  if(mode==='level')return t('share_level',{app,n:lvl+1,res:r.win?t('share_level_done',{st:r.st}):t('share_res_not'),score});
+  if(mode==='timed')return t('share_timed',{app,score,best:bestT});
+  return t('share_classic',{app,score,best});
 }
-function copyFallback(t){
+function copyFallback(txt){
   try{
-    const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';
+    const a=document.createElement('textarea');a.value=txt;a.style.cssText='position:fixed;opacity:0';
     document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();
-    $('#shareMsg').textContent='Teks hasil disalin. Tempel di aplikasi chat.';
-  }catch(e){$('#shareMsg').textContent='Tidak bisa membagikan di perangkat ini.'}
+    $('#shareMsg').textContent=t('share_copied');
+  }catch(e){$('#shareMsg').textContent=t('share_fail')}
 }
 function doShare(){
-  const t=shareText(),url=location.hostname.endsWith('.github.io')?location.href.split('#')[0]:'',full=t+(url?'\n'+url:'');
+  const msg=shareText(),url=location.hostname.endsWith('.github.io')?location.href.split('#')[0]:'',full=msg+(url?'\n'+url:'');
   try{
     if(window.AndroidShare&&window.AndroidShare.share){window.AndroidShare.share(full);return}
-    if(navigator.share){navigator.share(url?{text:t,url}:{text:t}).catch(()=>{});return}
+    if(navigator.share){navigator.share(url?{text:msg,url}:{text:msg}).catch(()=>{});return}
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(full).then(()=>{$('#shareMsg').textContent='Teks hasil disalin. Tempel di aplikasi chat.'}).catch(()=>copyFallback(full));
+      navigator.clipboard.writeText(full).then(()=>{$('#shareMsg').textContent=t('share_copied')}).catch(()=>copyFallback(full));
       return;
     }
   }catch(e){}

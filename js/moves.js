@@ -64,13 +64,13 @@ function place({i,p,r,c}){
   if(L){
     linesCleared+=L;const tg=[...kill].filter(i=>targets[i]!==undefined).length;burst(kill);if(L>1)shake();
     meter+=L;let gift='';
-    if(meter>=5){meter-=5;const k=ORDER[awardIdx++%3];pw[k]++;gift=' Hadiah: '+NAMA[k];sfx.gift()}
+    if(meter>=5){meter-=5;const k=ORDER[awardIdx++%3];pw[k]++;gift=t('tst_gift',{name:NAMA[k]});sfx.gift()}
     streak++;score+=L*L*10+(streak-1)*10;busy=true;sfx.clear(L);ev('lines',L);ev('combo',streak);ev('multi',L);if(mode==='timed')timeLeft=Math.min(TMAX,timeLeft+L*3);
     kill.forEach(idx=>cells[idx].classList.add('flash'));
-    toast((L>1?L+' garis!':'Garis!')+(streak>1?' Kombo x'+streak:'')+(tg?' +'+tg+' gambar':'')+gift);
+    toast((L>1?t('tst_lines',{n:L}):t('tst_line'))+(streak>1?t('tst_combo',{n:streak}):'')+(tg?t('tst_gems',{n:tg}):'')+gift);
     updateScore();renderTray();
     setTimeout(()=>{kill.forEach(clearCell);busy=false;
-      if(grid.every(v=>!v)){score+=100;toast('Papan bersih! +100');ev('clean',1)}
+      if(grid.every(v=>!v)){score+=100;toast(t('tst_clean'));ev('clean',1)}
       after();},230);
   }else{streak=0;after()}
 }

@@ -1,28 +1,28 @@
 /* Pencapaian dan misi harian */
 const ACH=[
-{id:'first',n:'Langkah pertama',d:'Hapus garis pertamamu',f:()=>ach.stats.lines>=1},
-{id:'l50',n:'Penghapus garis',d:'Hapus 50 garis',f:()=>ach.stats.lines>=50},
-{id:'l300',n:'Mesin penghapus',d:'Hapus 300 garis',f:()=>ach.stats.lines>=300},
-{id:'c3',n:'Kombo beruntun',d:'Capai kombo x3',f:()=>ach.stats.combo>=3},
-{id:'c6',n:'Kombo gila',d:'Capai kombo x6',f:()=>ach.stats.combo>=6},
-{id:'m3',n:'Sekali sapu',d:'Hapus 3 garis sekaligus',f:()=>ach.stats.multi>=3},
-{id:'s500',n:'Skor 500',d:'Raih skor 500 dalam satu game',f:()=>ach.stats.best>=500},
-{id:'s1500',n:'Skor 1500',d:'Raih skor 1500 dalam satu game',f:()=>ach.stats.best>=1500},
-{id:'clean',n:'Papan bersih',d:'Kosongkan seluruh papan',f:()=>ach.stats.clean>=1},
-{id:'pu',n:'Ahli power-up',d:'Pakai bom, acak, dan undo',f:()=>PU3.every(k=>(ach.stats.pu[k]||0)>0)},
-{id:'lv5',n:'Penakluk level',d:'Selesaikan 5 level',f:()=>Object.keys(prog.stars).length>=5},
-{id:'lv20',n:'Juara level',d:'Selesaikan semua level',f:()=>Object.keys(prog.stars).length>=LEVELS.length},
-{id:'star',n:'Bintang tiga',d:'Dapat 3 bintang di sebuah level',f:()=>Object.values(prog.stars).includes(3)},
-{id:'dd',n:'Pemburu harian',d:'Selesaikan tantangan harian',f:()=>Object.keys(dly.done).length>=1},
-{id:'d3',n:'Konsisten',d:'Main 3 hari beruntun',f:()=>streakNow()>=3}];
+{id:'first',get n(){return t('a_first_n')},get d(){return t('a_first_d')},f:()=>ach.stats.lines>=1},
+{id:'l50',get n(){return t('a_l50_n')},get d(){return t('a_l50_d')},f:()=>ach.stats.lines>=50},
+{id:'l300',get n(){return t('a_l300_n')},get d(){return t('a_l300_d')},f:()=>ach.stats.lines>=300},
+{id:'c3',get n(){return t('a_c3_n')},get d(){return t('a_c3_d')},f:()=>ach.stats.combo>=3},
+{id:'c6',get n(){return t('a_c6_n')},get d(){return t('a_c6_d')},f:()=>ach.stats.combo>=6},
+{id:'m3',get n(){return t('a_m3_n')},get d(){return t('a_m3_d')},f:()=>ach.stats.multi>=3},
+{id:'s500',get n(){return t('a_s500_n')},get d(){return t('a_s500_d')},f:()=>ach.stats.best>=500},
+{id:'s1500',get n(){return t('a_s1500_n')},get d(){return t('a_s1500_d')},f:()=>ach.stats.best>=1500},
+{id:'clean',get n(){return t('a_clean_n')},get d(){return t('a_clean_d')},f:()=>ach.stats.clean>=1},
+{id:'pu',get n(){return t('a_pu_n')},get d(){return t('a_pu_d')},f:()=>PU3.every(k=>(ach.stats.pu[k]||0)>0)},
+{id:'lv5',get n(){return t('a_lv5_n')},get d(){return t('a_lv5_d')},f:()=>Object.keys(prog.stars).length>=5},
+{id:'lv20',get n(){return t('a_lv20_n')},get d(){return t('a_lv20_d')},f:()=>Object.keys(prog.stars).length>=LEVELS.length},
+{id:'star',get n(){return t('a_star_n')},get d(){return t('a_star_d')},f:()=>Object.values(prog.stars).includes(3)},
+{id:'dd',get n(){return t('a_dd_n')},get d(){return t('a_dd_d')},f:()=>Object.keys(dly.done).length>=1},
+{id:'d3',get n(){return t('a_d3_n')},get d(){return t('a_d3_d')},f:()=>streakNow()>=3}];
 const MT=[
-{t:'lines',tx:g=>'Hapus '+g+' garis',mk:r=>[10,15,20][Math.floor(r()*3)]},
-{t:'combo',tx:g=>'Capai kombo x'+g,mk:r=>3+Math.floor(r()*2)},
-{t:'multi',tx:g=>'Hapus '+g+' garis sekaligus',mk:r=>3+Math.floor(r()*2)},
-{t:'pu',tx:g=>'Pakai '+g+' power-up',mk:r=>2+Math.floor(r()*2)},
-{t:'score',tx:g=>'Raih skor '+g+' dalam satu game',mk:r=>[400,600,800][Math.floor(r()*3)]},
-{t:'level',tx:g=>'Selesaikan '+g+' level',mk:r=>1+Math.floor(r()*2)},
-{t:'daily',tx:()=>'Selesaikan tantangan harian',mk:()=>1}];
+{t:'lines',tx:g=>t('mis_lines',{g}),mk:r=>[10,15,20][Math.floor(r()*3)]},
+{t:'combo',tx:g=>t('mis_combo',{g}),mk:r=>3+Math.floor(r()*2)},
+{t:'multi',tx:g=>t('mis_multi',{g}),mk:r=>3+Math.floor(r()*2)},
+{t:'pu',tx:g=>t('mis_pu',{g}),mk:r=>2+Math.floor(r()*2)},
+{t:'score',tx:g=>t('mis_score',{g}),mk:r=>[400,600,800][Math.floor(r()*3)]},
+{t:'level',tx:g=>t('mis_level',{g}),mk:r=>1+Math.floor(r()*2)},
+{t:'daily',tx:g=>t('mis_daily',{g}),mk:()=>1}];
 const ADD=['lines','pu','level','daily'];
 function saveMeta(){secSet('blox-ach',ach);secSet('blox-mis',mis)}
 function ensureMis(){
@@ -33,28 +33,28 @@ function ensureMis(){
   mis={key:k,list:idx.slice(0,3).map(i=>({t:MT[i].t,g:MT[i].mk(r),p:0,r:PU3[Math.floor(r()*3)],done:false}))};
   saveMeta();
 }
-function ev(t,n,x){
+function ev(ty,n,x){
   ensureMis();
   const st=ach.stats;
-  if(t==='lines')st.lines+=n;
-  else if(t==='combo')st.combo=Math.max(st.combo,n);
-  else if(t==='multi')st.multi=Math.max(st.multi,n);
-  else if(t==='clean')st.clean++;
-  else if(t==='score')st.best=Math.max(st.best,n);
-  else if(t==='pu')st.pu[x]=(st.pu[x]||0)+1;
+  if(ty==='lines')st.lines+=n;
+  else if(ty==='combo')st.combo=Math.max(st.combo,n);
+  else if(ty==='multi')st.multi=Math.max(st.multi,n);
+  else if(ty==='clean')st.clean++;
+  else if(ty==='score')st.best=Math.max(st.best,n);
+  else if(ty==='pu')st.pu[x]=(st.pu[x]||0)+1;
   mis.list.forEach(m=>{
-    if(m.t!==t||m.done)return;
-    m.p=ADD.includes(t)?m.p+n:Math.max(m.p,n);
+    if(m.t!==ty||m.done)return;
+    m.p=ADD.includes(ty)?m.p+n:Math.max(m.p,n);
     if(m.p>=m.g){
       m.p=m.g;m.done=true;ach.bonus[m.r]=Math.min(5,(ach.bonus[m.r]||0)+1);
-      setTimeout(()=>toast('Misi selesai! +1 '+NAMA[m.r]+' awal'),1300);sfx.gift();
+      setTimeout(()=>toast(t('mis_done_toast',{name:NAMA[m.r]})),1300);sfx.gift();
     }
   });
 }
 function checkAch(){
   let d=0;
   ACH.forEach(a=>{
-    if(!ach.un[a.id]&&a.f()){ach.un[a.id]=1;d++;setTimeout(()=>toast('Pencapaian: '+a.n),700+d*900);sfx.gift()}
+    if(!ach.un[a.id]&&a.f()){ach.un[a.id]=1;d++;setTimeout(()=>toast(t('ach_toast',{name:a.n})),700+d*900);sfx.gift()}
   });
 }
 const IC_TROPHY='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M17 5h3v2a3 3 0 01-3 3M7 5H4v2a3 3 0 003 3"/></svg>';
@@ -65,11 +65,11 @@ function showAch(){
   mis.list.forEach(m=>{
     const T=MT.find(x=>x.t===m.t),d=document.createElement('div');
     d.className='mis'+(m.done?' done':'');
-    d.innerHTML=T.tx(m.g)+'<small>'+(m.done?'Selesai. Hadiah diterima: +1 '+NAMA[m.r]+' awal':'Hadiah: +1 '+NAMA[m.r]+' awal ('+m.p+'/'+m.g+')')+'</small><div class="gbar"><div class="gf" style="width:'+Math.round(m.p/m.g*100)+'%"></div></div>';
+    d.innerHTML=T.tx(m.g)+'<small>'+(m.done?t('mis_reward_done',{name:NAMA[m.r]}):t('mis_reward',{name:NAMA[m.r],p:m.p,g:m.g}))+'</small><div class="gbar"><div class="gf" style="width:'+Math.round(m.p/m.g*100)+'%"></div></div>';
     mb.appendChild(d);
   });
   const al=$('#achList');al.innerHTML='';
-  $('#achH').textContent='Pencapaian ('+ACH.filter(a=>ach.un[a.id]).length+'/'+ACH.length+')';
+  $('#achH').textContent=t('ach_title',{a:ACH.filter(a=>ach.un[a.id]).length,b:ACH.length});
   ACH.forEach(a=>{
     const u=!!ach.un[a.id],d=document.createElement('div');
     d.className='ac '+(u?'un':'lock');

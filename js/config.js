@@ -17,10 +17,9 @@ const TI=['<path d="M6.5 3h11l4.5 6.2L12 21 2 9.2z"/><path d="M2 9.2h20M9 3l-2 6
 const tiSvg=i=>'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" stroke="rgba(0,0,0,.45)" stroke-width="1.4" stroke-linejoin="round">'+TI[i]+'</svg>';
 const TURL=[0,1,2].map(i=>'url("data:image/svg+xml,'+encodeURIComponent(tiSvg(i))+'")');
 const CHECK='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-const SKINS=[['classic','Klasik'],['glass','Kaca'],['pixel','Piksel'],['ball','Bola'],['neon','Neon']];
+const SKINS=['classic','glass','pixel','ball','neon'];
 const TMAX=120,T0=90;
-const ORDER=['bomb','shuffle','undo'],NAMA={bomb:'Bom',shuffle:'Acak',undo:'Undo'};
-const HARI=['Min','Sen','Sel','Rab','Kam','Jum','Sab'],BULAN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const ORDER=['bomb','shuffle','undo'],NAMA=new Proxy({},{get:(_,k)=>t('pu_'+k)});
 
 /* Papan peringkat online (Supabase). Kunci publishable memang aman ada di sini.
    JANGAN PERNAH memasukkan kunci "secret" atau "service_role". Panduan: PANDUAN-ONLINE.md */

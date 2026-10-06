@@ -1,21 +1,49 @@
 plugins {
     id 'com.android.application'
 }
+
 android {
     namespace 'com.bloxblast.mini'
-    compileSdk 34
+    compileSdk 36
+
     defaultConfig {
+        // applicationId TIDAK BISA diganti setelah aplikasi terbit di Google Play. Tentukan sebelum upload pertama.
         applicationId 'com.bloxblast.mini'
         minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName '1.0'
+        targetSdk 36
+        // Diisi otomatis oleh GitHub Actions (-PversionCode=nomor_run). Harus naik di setiap unggahan ke Play.
+        versionCode (project.findProperty('versionCode') ?: '1').toString().toInteger()
+        versionName (project.findProperty('versionName') ?: '1.0').toString()
     }
+
+    signingConfigs {
+        release {
+            def ks = System.getenv('KEYSTORE_FILE')
+            if (ks) {
+                storeFile file(ks)
+                storePassword System.getenv('KEYSTORE_PASSWORD')
+                keyAlias System.getenv('KEY_ALIAS')
+                keyPassword System.getenv('KEY_PASSWORD')
+            }
+        }
+    }
+
     buildTypes {
-        release { minifyEnabled false }
+        release {
+            minifyEnabled false
+            if (System.getenv('KEYSTORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
