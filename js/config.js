@@ -24,3 +24,6 @@ const ORDER=['bomb','shuffle','undo'],NAMA=new Proxy({},{get:(_,k)=>t('pu_'+k)})
 /* Papan peringkat online (Supabase). Kunci publishable memang aman ada di sini.
    JANGAN PERNAH memasukkan kunci "secret" atau "service_role". Panduan: PANDUAN-ONLINE.md */
 const ONLINE={url:'https://qhfsbywjypwlpggtukkc.supabase.co',key:'sb_publishable_LRavnb7Sy0fDPfjYjYlGTA_iC_Szmjd'};
+
+/* Nomor versi yang tampil di Beranda. Samakan dengan CACHE di sw.js saat merilis. */
+const APP_VERSION='18';

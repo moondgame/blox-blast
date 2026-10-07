@@ -2,8 +2,6 @@
 
 Game puzzle blok (ala Block Blast) untuk web, PWA (bisa dipasang dan main offline), dan APK Android.
 
-https://moondgame.github.io/blox-blast/
-
 ## Isi proyek
 - `index.html`: kerangka halaman (hanya markup).
 - `css/`: gaya tampilan per fungsi (`base`, `board`, `skins`, `effects`, `controls`, `screens`, `buttons`, `powerups`, `progress`, `overlays`, `leaderboard`, `extras`, `levels`, `lock`). Urutan pemuatan penting, lihat `index.html`.
@@ -59,7 +57,13 @@ Lihat `PANDUAN-ONLINE.md`. URL dan kunci Supabase ada di `js/config.js`.
 - Skor papan peringkat diperiksa server (kecepatan, durasi, batas skor), tetapi belum bisa dibuktikan sepenuhnya. Detail di `PANDUAN-ONLINE.md`.
 Batasan: game yang berjalan di HP pemain tidak bisa dibuat 100% anti-curang.
 
+## Memastikan HP memakai versi terbaru
+Nomor versi tampil kecil di bawah tombol Beranda (misalnya `v18`). Jika angkanya lama atau tampilannya belum berubah:
+- **Web atau PWA:** pastikan SEMUA file terbaru (termasuk folder `css/` dan `js/`) sudah di GitHub dan deploy Pages selesai. Buka game saat online, tutup aplikasi sepenuhnya, lalu buka lagi. Versi baru akan menggantikan yang lama dan halaman memuat ulang otomatis.
+- **APK:** game ada DI DALAM APK, jadi harus build ulang lewat tab Actions (centang hijau), unduh APK dari Releases, lalu pasang. Jika Android menolak ("aplikasi tidak terpasang karena konflik"), hapus aplikasi lama dulu, lalu pasang yang baru. Progres tamu di aplikasi lama ikut hilang, progres akun aman di cloud. Build berikutnya memakai kunci yang sama sehingga bisa langsung menimpa.
+
 ## Catatan versi
+- v18: tombol mata untuk menampilkan atau menyembunyikan password, nomor versi di Beranda, update web otomatis (jaringan dulu baru cache), dan kunci debug yang stabil antar build APK.
 - v17: beranda hanya 3 tombol (Mulai, Papan peringkat, Pengaturan) dan semua mode ada di layar Mulai; dua bahasa (Indonesia dan Inggris) yang bisa diganti di Pengaturan; akun (email dan password) dengan simpanan cloud dan pemulihan password; papan peringkat memakai akun; panel admin (blokir, hapus nama, atur skor, laporan, log); hapus akun di dalam aplikasi dan halaman web.
 - v16: siap Google Play: target API 36 dan AGP 8.13, izin INTERNET (sebelumnya hilang, papan peringkat tidak jalan di APK), tombol kembali versi baru dan tepi layar Android 15+, ikon adaptif, build AAB bertanda tangan lewat GitHub Actions, kebijakan privasi, lapor konten dan hapus data online, filter nama.
 - v15: file dipecah per fungsi (css/ dan js/), 30 level (level 21-30 punya kotak bergambar, es, dan batas waktu), kunci PIN, pemeriksaan skor di server memakai data langkah/garis/durasi, CSP tanpa skrip inline, APK memuat game lewat alamat https lokal, koneksi Supabase terpasang.

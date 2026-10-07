@@ -242,7 +242,9 @@ const TX=[
   ["err_unconfirmed", "Email belum dikonfirmasi. Cek kotak masukmu.", "Email not confirmed yet. Check your inbox."],
   ["err_weak", "Password terlalu lemah.", "The password is too weak."],
   ["err_rate", "Terlalu banyak percobaan. Coba lagi nanti.", "Too many attempts. Try again later."],
-  ["acc_wait", "Mohon tunggu...", "Please wait..."]
+  ["acc_wait", "Mohon tunggu...", "Please wait..."],
+  ["acc_show", "Tampilkan password", "Show password"],
+  ["acc_hide", "Sembunyikan password", "Hide password"]
 ];
 const I18N={id:{},en:{}};
 TX.forEach(([k,a,b])=>{I18N.id[k]=a;I18N.en[k]=b});

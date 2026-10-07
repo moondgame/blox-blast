@@ -18,3 +18,11 @@
 .tag{display:inline-block;font-size:.66rem;padding:1px 7px;border-radius:8px;background:var(--btn);color:#fff;margin-left:6px}
 .tag.ban{background:#e03131}
 .tag.hid{background:#868e96}
+/* Tombol mata untuk menampilkan atau menyembunyikan password */
+.pwwrap{position:relative;width:100%}
+.pwwrap .fld{padding-right:48px}
+.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);margin:0;padding:6px 8px;background:none;box-shadow:none;color:var(--muted);text-shadow:none;border-radius:8px;display:flex;align-items:center}
+.eye svg{width:22px;height:22px;display:block}
+.eye:active:not(:disabled){transform:translateY(-50%);box-shadow:none}
+.eye:focus-visible{outline:3px solid var(--btn)}
+.ver{font-size:.7rem;color:var(--muted);margin:2px 0 0;opacity:.75}

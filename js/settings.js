@@ -9,7 +9,7 @@ function toggleMuted(){
 /* Ganti bahasa: terapkan ke teks statis, lalu gambar ulang layar yang sedang terbuka */
 function setLang(l){
   lang=l;try{localStorage.setItem('blox-lang',l)}catch(e){}
-  applyI18n();buildPw();updateScore();updateGoal();updatePw();refreshUi();
+  applyI18n();buildPw();updateScore();updateGoal();updatePw();refreshUi();paintEyes();
 }
 function refreshUi(){
   const R={home:showHome,startScreen:showStart,lvlScreen:showLevels,dayScreen:showDaily,achScreen:showAch,setScreen:showSettings,lbScreen:showLb,accScreen:showAccount};

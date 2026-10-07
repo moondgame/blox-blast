@@ -128,7 +128,7 @@ async function doSignIn(email,pass){
 async function onSession(s){
   saveSession(s);await loadProfile();
   if(!(profile&&profile.banned))await syncNow();
-  $('#accPass').value='';showAccount();
+  $('#accPass').value='';hidePw();showAccount();
 }
 async function restoreSession(){
   await loadProfile();
@@ -162,7 +162,7 @@ async function doSetPass(){
   if(p.length<8)return aMsg(t('acc_pass_short'));
   try{
     await authFetch('/user',{password:p},'PUT',recoveryToken);
-    recoveryToken=null;$('#accNew').value='';accMode='in';aMsg(t('acc_pass_saved'));showAccount();
+    recoveryToken=null;$('#accNew').value='';hidePw();accMode='in';aMsg(t('acc_pass_saved'));showAccount();
   }catch(e){aMsg(e.message)}
 }
 /* Tautan dari email (konfirmasi pendaftaran atau reset password) membawa token di bagian # alamat */
@@ -180,6 +180,19 @@ async function handleAuthHash(){
   return true;
 }
 /* ---- Layar akun ---- */
+/* Tombol mata: ikon mata = tekan untuk menampilkan, mata dicoret = tekan untuk menyembunyikan */
+const EYE_ON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYE_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.9 17.9A10.9 10.9 0 0112 19C5 19 1 12 1 12a18.5 18.5 0 015.1-5.9M9.9 5.1A10.9 10.9 0 0112 5c7 0 11 7 11 7a18.5 18.5 0 01-2.2 3.2M14.1 14.1a3 3 0 11-4.2-4.2"/><path d="M1 1l22 22"/></svg>';
+const EYES=[['#eyePass','#accPass'],['#eyeNew','#accNew']];
+function paintEyes(){
+  EYES.forEach(([b,i])=>{
+    const btn=$(b),shown=$(i).type==='text';
+    btn.innerHTML=shown?EYE_OFF:EYE_ON;
+    btn.setAttribute('aria-label',t(shown?'acc_hide':'acc_show'));
+    btn.setAttribute('aria-pressed',shown?'true':'false');
+  });
+}
+function hidePw(){EYES.forEach(([b,i])=>{$(i).type='password'});paintEyes()}
 function showAccount(m){
   if(m)accMode=m;
   const inn=!!session,rec=accMode==='rec';
@@ -194,11 +207,14 @@ function showAccount(m){
     $('#accAdminBtn').hidden=!(profile&&profile.role==='admin'&&!profile.banned);
     $('#accDel').textContent=t('acc_delete');armDel=false;
   }
+  paintEyes();
   show('#accScreen');
 }
 function initAccount(){
-  $('#sAcc').onclick=()=>showAccount();
-  $('#lbLogin').onclick=()=>showAccount('in');
+  $('#sAcc').onclick=()=>{hidePw();showAccount()};
+  $('#lbLogin').onclick=()=>{hidePw();showAccount('in')};
+  EYES.forEach(([b,i])=>{$(b).onclick=()=>{$(i).type=$(i).type==='password'?'text':'password';paintEyes()}});
+  hidePw();
   $('#tabIn').onclick=()=>{accMode='in';aMsg('');showAccount()};
   $('#tabUp').onclick=()=>{accMode='up';aMsg('');showAccount()};
   $('#accGo').onclick=async()=>{

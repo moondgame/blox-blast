@@ -64,6 +64,7 @@
   <button class="mb" id="hStart" data-i18n="home_start"></button>
   <button class="mb alt" id="hLb" data-i18n="home_lb"></button>
   <button class="mb alt" id="hSet" data-i18n="home_set"></button>
+  <p class="ver" id="ver"></p>
 </div>
 
 <div id="startScreen" class="screen" hidden>
@@ -132,12 +133,12 @@
     <div class="tabs"><button class="alt tab sel" id="tabIn" data-i18n="acc_login"></button><button class="alt tab" id="tabUp" data-i18n="acc_signup"></button></div>
     <input class="fld" id="accEmail" type="email" autocomplete="email" data-i18n-ph="acc_email">
     <input class="fld" id="accUser" maxlength="16" autocomplete="username" hidden data-i18n-ph="acc_user">
-    <input class="fld" id="accPass" type="password" autocomplete="current-password" data-i18n-ph="acc_pass">
+    <div class="pwwrap"><input class="fld" id="accPass" type="password" autocomplete="current-password" data-i18n-ph="acc_pass"><button type="button" class="eye" id="eyePass" data-i18n-aria="acc_show"></button></div>
     <button class="mb" id="accGo" data-i18n="acc_login"></button>
     <button class="lnk2" id="accForgot" data-i18n="acc_forgot"></button>
   </div>
   <div id="accRec" class="accbox" hidden>
-    <input class="fld" id="accNew" type="password" autocomplete="new-password" data-i18n-ph="acc_newpass">
+    <div class="pwwrap"><input class="fld" id="accNew" type="password" autocomplete="new-password" data-i18n-ph="acc_newpass"><button type="button" class="eye" id="eyeNew" data-i18n-aria="acc_show"></button></div>
     <button class="mb" id="accSetPass" data-i18n="acc_setpass"></button>
   </div>
   <div id="accIn" class="accbox" hidden>

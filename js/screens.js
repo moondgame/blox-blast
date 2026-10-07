@@ -14,6 +14,7 @@ const modeName=m=>m==='level'?t('mode_level')+' '+(lvl+1):m==='daily'?t('mode_r_
 function showHome(){
   const st=Object.values(prog.stars).reduce((a,b)=>a+b,0);
   $('#homeInfo').textContent=t('home_info',{best,st,max:LEVELS.length*3,streak:streakNow()})+(tampered?'. '+t('tampered'):'');
+  $('#ver').textContent='v'+APP_VERSION;
   $('#homeAcc').textContent=accName()?t('home_acc_in',{name:accName()}):t('home_acc_out');
   show('#home');
 }
