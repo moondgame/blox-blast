@@ -2,6 +2,8 @@
 
 Game puzzle blok (ala Block Blast) untuk web, PWA (bisa dipasang dan main offline), dan APK Android.
 
+https://moondgame.github.io/blox-blast/
+
 ## Isi proyek
 - `index.html`: kerangka halaman (hanya markup).
 - `css/`: gaya tampilan per fungsi (`base`, `board`, `skins`, `effects`, `controls`, `screens`, `buttons`, `powerups`, `progress`, `overlays`, `leaderboard`, `extras`, `levels`, `lock`). Urutan pemuatan penting, lihat `index.html`.
