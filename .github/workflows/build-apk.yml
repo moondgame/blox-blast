@@ -53,6 +53,14 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: gradle bundleRelease assembleRelease --no-daemon -PversionCode=$VERSION_CODE -PversionName=1.0.$VERSION_CODE
 
+      # Tanpa ini, tiap build membuat kunci debug baru dan Android menolak memasang APK baru di atas yang lama.
+      - name: Pakai kunci debug yang sama di setiap build
+        if: steps.ks.outputs.signed != 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: android-debug-keystore-v1
+
       - name: Build APK debug (tanpa kunci rilis)
         if: steps.ks.outputs.signed != 'true'
         working-directory: android
